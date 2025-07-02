@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}Coder Book Store{% endblock %}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      body {
+        background: radial-gradient(
+          ellipse at bottom,
+          #0d0d2b 0%,
+          #000000 100%
+        );
+      }
+    </style>
+  </head>
+  <body class="text-gray-100 font-sans min-h-screen">
+    {% include 'header.html' %}
+
+    <main class="container mx-auto px-4 py-10">
+      {% block main_content %} Content goes here {% endblock %}
+    </main>
+
+    {% include 'footer.html' %}
+  </body>
+</html>
