@@ -1,0 +1,36 @@
+{% extends "base_layout.html" %}
+{% load static %}
+{% block main_content %}
+
+<div class="max-w-4xl mx-auto mt-10 bg-gradient-to-br from-gray-900 to-black p-8 rounded-2xl shadow-2xl shadow-purple-900 text-white border border-gray-800">
+
+    <h2 class="text-2xl font-bold text-cyan-400 mb-6">Update Book</h2>
+
+    <form method="post" action="{% url 'bookstore:bookstore-book_update' book.ISBN %}" enctype="multipart/form-data" class="space-y-6">
+        {% csrf_token %}
+
+        {% for field in form %}
+        <div>
+            <label class="block text-purple-300 font-medium mb-1">{{ field.label_tag }}</label>
+            {{ field }}
+            {% if field.errors %}
+                <p class="text-red-400 text-sm mt-1">{{ field.errors }}</p>
+            {% endif %}
+        </div>
+        {% endfor %}
+
+        <div class="flex items-center justify-between mt-8">
+            <button type="submit"
+                    class="bg-cyan-600 hover:bg-cyan-500 transition px-6 py-2 rounded-lg shadow-md hover:shadow-cyan-400 text-white font-semibold">
+                 ctrl + S
+            </button>
+
+            <a href="{% url 'bookstore:bookstore-index' %}"
+               class="bg-cyan-600 hover:bg-cyan-500 transition px-6 py-2 rounded-lg shadow-md hover:shadow-cyan-400 text-white font-semibold">
+                 ctrl + Z
+            </a>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

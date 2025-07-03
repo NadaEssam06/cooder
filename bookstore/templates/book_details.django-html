@@ -5,13 +5,11 @@
 <div class="max-w-4xl mx-auto bg-gradient-to-br from-gray-900 to-black p-8 rounded-2xl shadow-xl shadow-purple-900 text-white border border-gray-800">
 
   <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-    <div>
-        {% load static %}
-      <img src="{% static 'images/'|add:book.image %}" alt="{{ book.title }}"
-           class="w-full h-auto rounded-xl border border-gray-700 shadow-lg shadow-cyan-600/20" />
-    </div>
+      {% if book.image %}
+      <img src="{{ MEDIA_URL }}{{ book.image }}" alt="{{ book.title }}"
+          class="w-full h-auto rounded-xl border border-gray-700 shadow-lg shadow-cyan-600/20" />
+      {% endif %}
 
-    <!-- Book Info -->
     <div>
       <h1 class="text-3xl font-bold text-cyan-400 mb-2">{{ book.title }}</h1>
       <h2 class="text-xl text-purple-300 italic mb-4">by {{ book.author }}</h2>
@@ -22,10 +20,17 @@
 
       <div class="flex items-center justify-between ">
         <span class="text-2xl text-cyan-300 font-bold">${{ book.price }}</span>
-         <a  href= {% url "bookstore:bookstore-index"%} class="bg-cyan-600 hover:bg-cyan-500 transition px-4 py-2 rounded-lg shadow hover:shadow-cyan-400 text-white">
-         Back
-        </a> 
 
+      </div>
+      <div class="flex items-center justify-around mt-8">
+        <a  href= {% url "bookstore:bookstore-index"%} class="bg-cyan-600 hover:bg-cyan-500 transition px-4 py-2 rounded-lg shadow hover:shadow-cyan-400 text-white">
+          Back
+         </a> 
+         <a  href= {% url "bookstore:bookstore-book_update" book.ISBN %} class="bg-cyan-600 hover:bg-cyan-500 transition px-4 py-2 rounded-lg shadow hover:shadow-cyan-400 text-white">
+          <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-edit"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" /><path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z" /><path d="M16 5l3 3" /></svg>          </a>
+          <a  href= {% url "bookstore:bookstore-book_delete" book.ISBN %} class="bg-red-600 hover:bg-red-500 transition px-4 py-2 rounded-lg shadow hover:shadow-red-400 text-white">
+            <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-http-delete"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 8v8h2a2 2 0 0 0 2 -2v-4a2 2 0 0 0 -2 -2z" /><path d="M14 8h-4v8h4" /><path d="M10 12h2.5" /><path d="M17 8v8h4" /></svg>
+          </a>
       </div>
     </div>
   </div>

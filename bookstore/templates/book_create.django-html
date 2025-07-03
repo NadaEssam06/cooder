@@ -1,0 +1,13 @@
+{% extends "base_layout.html" %}
+{% block main_content %}
+<div class="max-w-4xl mx-auto bg-gradient-to-br from-gray-900 to-black p-8 rounded-2xl shadow-xl shadow-purple-900 text-white border border-gray-800">
+    <form method="post" actions={% url "bookstore:bookstore-book_create" %} enctype="multipart/form-data">
+        {% csrf_token %}
+        {{form.as_p}}
+        <button type="submit" class="bg-cyan-600 hover:bg-cyan-500 transition px-4 py-2 rounded-lg shadow hover:shadow-cyan-400 text-white">
+        Submit
+        </button>
+
+    </form>
+</div>
+{% endblock  %}
