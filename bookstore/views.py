@@ -1,6 +1,6 @@
+from uuid import UUID
 from django.shortcuts import redirect, render
-from django.http import HttpResponse
-from bookstore.models import Books
+from bookstore.models import Books,ISBN
 from bookstore.forms import BookForm
 from django.conf import settings
 # Create your views here.
@@ -17,8 +17,9 @@ def book_list(request):
         "MEDIA_URL": settings.MEDIA_URL})
 
 
-def book_detail(request,isbn):
-    book= Books.objects.get(ISBN=isbn)
+def book_detail(request,isbn:UUID):
+    isbn_instance=ISBN.objects.get(isbn=isbn)
+    book= Books.objects.get(isbn=isbn_instance)
     return render(request,"book_details.django-html",context={
         "book":book, 
         "MEDIA_URL": settings.MEDIA_URL})
@@ -35,13 +36,14 @@ def book_create (request):
         "MEDIA_URL": settings.MEDIA_URL})
 
 def book_update(request,isbn):
-    book= Books.objects.get(ISBN=isbn)
+    isbn_instance=ISBN.objects.get(isbn=isbn)
+    book= Books.objects.get(isbn=isbn_instance)
     form=BookForm(instance=book)
     if request.method== "POST":
         form=BookForm(request.POST,request.FILES,instance=book)
         if form.is_valid():
             form.save()
-            return redirect("bookstore:bookstore-book_detail",isbn=book.ISBN)
+            return redirect("bookstore:bookstore-book_detail",isbn=book.isbn.isbn)
     return render(request,"book_update.django-html",context={
         "form":form,
         "book":book})
