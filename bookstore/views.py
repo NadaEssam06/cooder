@@ -18,8 +18,8 @@ def book_list(request):
         "MEDIA_URL": settings.MEDIA_URL})
 
 @login_required
-def book_detail(request,isbn:UUID):
-    isbn_instance=ISBN.objects.get(isbn=isbn)
+def book_detail(request,id):
+    isbn_instance=ISBN.objects.get(id=id)
     book= Books.objects.get(isbn=isbn_instance)
     return render(request,"book_details.django-html",context={
         "book":book, 
@@ -38,8 +38,8 @@ def book_create (request):
         "MEDIA_URL": settings.MEDIA_URL})
 
 @login_required
-def book_update(request,isbn):
-    isbn_instance=ISBN.objects.get(isbn=isbn)
+def book_update(request,id):
+    isbn_instance=ISBN.objects.get(id=id)
     book= Books.objects.get(isbn=isbn_instance)
     form=BookForm(instance=book)
     if request.method== "POST":
@@ -52,8 +52,10 @@ def book_update(request,isbn):
         "book":book})
 
 @login_required
-def book_delete(request,isbn):
-    Books.objects.get(ISBN=isbn).delete()
+def book_delete(request,id):
+    isbn_instance=ISBN.objects.get(id=id)
+    book= Books.objects.get(isbn=isbn_instance)
+    book.delete()
     return redirect("bookstore:bookstore-index")
 
 

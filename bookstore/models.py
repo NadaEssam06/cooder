@@ -28,12 +28,12 @@ class ISBN (models.Model):
         db_table="ISBN"
         
 class Books(models.Model):
-    isbn=models.OneToOneField("ISBN", on_delete=models.CASCADE,related_name='book', default=uuid.uuid4)
+    isbn=models.OneToOneField("ISBN", on_delete=models.CASCADE,related_name='book',null=True, blank=True)
     author=models.ForeignKey(User,on_delete=models.CASCADE,related_name="authored_book")
     title=models.CharField("Book Title",max_length=255,unique=True)
     price=models.PositiveIntegerField("Bool Price",default=0)
     image=models.ImageField("Book cover",upload_to='images/',blank=True)
-    categories=models.ManyToManyField("Categories",related_name='books')
+    categories=models.ManyToManyField("Categories",blank=True,related_name='books')
     description=models.CharField("Book Description",max_length=255)
     created_at=models.DateTimeField(auto_now_add=True)
     updated_at=models.DateTimeField(auto_now=True)
