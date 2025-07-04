@@ -4,54 +4,78 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Login</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      body {
+        background: radial-gradient(
+          circle at 20% 40%,
+          #0f0c29,
+          #302b63,
+          #24243e
+        );
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      .starry {
+        background-image: url("https://grainy-gradients.vercel.app/noise.svg");
+        mix-blend-mode: screen;
+        opacity: 0.3;
+      }
+    </style>
   </head>
-  <body>
+  <body
+    class="min-h-screen flex items-center justify-center relative overflow-hidden"
+  >
+    <div class="absolute inset-0 starry pointer-events-none"></div>
+
     <div
-      class="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 to-black text-white"
+      class="z-10 bg-gradient-to-br from-indigo-900 via-gray-900 to-black p-10 rounded-2xl shadow-2xl shadow-purple-900 w-full max-w-md border border-indigo-700"
     >
-      <div
-        class="bg-gradient-to-br from-gray-800 to-gray-900 p-10 rounded-2xl shadow-2xl shadow-purple-900 w-full max-w-md border border-gray-700"
+      <h2
+        class="text-4xl font-extrabold text-cyan-400 mb-8 text-center tracking-wide drop-shadow-glow"
       >
-        <h2 class="text-3xl font-bold text-cyan-400 mb-6 text-center">
-          🚀 Login
-        </h2>
+        Login
+      </h2>
 
-        <form method="post" class="space-y-6">
-          {% csrf_token %}
-          <div>
-            <label class="block mb-1 text-purple-300">username</label>
-            <input
-              type="text"
-              name="username"
-              class="w-full px-4 py-2 rounded-lg bg-gray-800 border border-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 shadow-sm"
-            />
-          </div>
-          <div>
-            <label class="block mb-1 text-purple-300">Password</label>
-            <input
-              type="password"
-              name="password"
-              class="w-full px-4 py-2 rounded-lg bg-gray-800 border border-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 shadow-sm"
-            />
-          </div>
-          {% for msg in messages %}
-          <p class="text-red-400 text-sm">{{ msg }}</p>
-          {% endfor %}
-          <button
-            type="submit"
-            class="w-full bg-cyan-600 hover:bg-cyan-500 transition px-4 py-2 rounded-lg shadow-md hover:shadow-cyan-400 text-white font-semibold"
-          >
-            ✨ Log In
-          </button>
-        </form>
+      <form method="post" class="space-y-6">
+        {% csrf_token %}
+        <div>
+          <label class="block mb-1 text-indigo-300">Username</label>
+          <input
+            type="text"
+            name="username"
+            class="w-full px-4 py-2 rounded-lg bg-gray-800 border border-cyan-500 focus:outline-none focus:ring-2 focus:ring-cyan-400 shadow-sm text-white"
+            placeholder="Enter your username"
+          />
+        </div>
+        <div>
+          <label class="block mb-1 text-indigo-300">Password</label>
+          <input
+            type="password"
+            name="password"
+            class="w-full px-4 py-2 rounded-lg bg-gray-800 border border-cyan-500 focus:outline-none focus:ring-2 focus:ring-cyan-400 shadow-sm text-white"
+            placeholder="Enter your password"
+          />
+        </div>
 
-        <p class="text-sm text-center text-gray-400 mt-6">
-          New here?
-          <a href="{% url 'signup' %}" class="text-cyan-400 hover:underline"
-            >Create an account</a
-          >
-        </p>
-      </div>
+        {% for msg in messages %}
+        <p class="text-red-400 text-sm">{{ msg }}</p>
+        {% endfor %}
+
+        <button
+          type="submit"
+          class="w-full bg-cyan-600 hover:bg-cyan-500 transition px-4 py-2 rounded-lg shadow-lg hover:shadow-cyan-400 text-white font-semibold tracking-wider"
+        >
+          🚀 Log In
+        </button>
+      </form>
+
+      <p class="text-sm text-center text-gray-400 mt-6">
+        New traveler?
+        <a href="{% url 'signup' %}" class="text-cyan-400 hover:underline"
+          >Create an account</a
+        >
+      </p>
     </div>
   </body>
 </html>

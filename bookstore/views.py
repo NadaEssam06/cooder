@@ -3,6 +3,7 @@ from django.shortcuts import redirect, render
 from bookstore.models import Books,ISBN
 from bookstore.forms import BookForm
 from django.conf import settings
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 def index(request):
     # res=HttpResponse("Hi from book store")
@@ -16,7 +17,7 @@ def book_list(request):
         "books":all_books,
         "MEDIA_URL": settings.MEDIA_URL})
 
-
+@login_required
 def book_detail(request,isbn:UUID):
     isbn_instance=ISBN.objects.get(isbn=isbn)
     book= Books.objects.get(isbn=isbn_instance)
@@ -24,6 +25,7 @@ def book_detail(request,isbn:UUID):
         "book":book, 
         "MEDIA_URL": settings.MEDIA_URL})
 
+@login_required
 def book_create (request):
     form= BookForm()
     if request.method == "POST":
@@ -35,6 +37,7 @@ def book_create (request):
         "form":form,
         "MEDIA_URL": settings.MEDIA_URL})
 
+@login_required
 def book_update(request,isbn):
     isbn_instance=ISBN.objects.get(isbn=isbn)
     book= Books.objects.get(isbn=isbn_instance)
@@ -48,6 +51,7 @@ def book_update(request,isbn):
         "form":form,
         "book":book})
 
+@login_required
 def book_delete(request,isbn):
     Books.objects.get(ISBN=isbn).delete()
     return redirect("bookstore:bookstore-index")

@@ -3,6 +3,7 @@ from django.urls import include, path
 from django.conf import settings
 from django.conf.urls.static import static
 from .views import index,book_list,book_detail,book_update,book_delete, book_create
+from django.views.decorators.csrf import csrf_exempt
 app_name='bookstore'
 urlpatterns = [
     # path('index',index,name='bookstore-index'),
